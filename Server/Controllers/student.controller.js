@@ -6,25 +6,29 @@ async function login(req, res) {
     let searchobj = {};
     searchobj["email"] = studenDetails.email;
     let response = await StudentModel.find(searchobj);
-    if (response[0] == undefined) {
+
+    if (response.length == 0) {
       res.status(200).json({
-        status: "Please ask admin to register",
-        error: error,
+        comment: "Please ask admin to register",
+        status: false,
       });
     } else if (response[0].password == studenDetails.password) {
       res.status(200).json({
-        status: "Sucessful",
+        comment: "Sucessful",
+        status: true,
         student: response,
       });
     } else {
       res.status(200).json({
-        status: "Password is wrong",
+        comment: "Password is wrong",
+        status: false,
       });
     }
   } catch (error) {
     res.status(500).json({
-      status: "Server Error",
-      error: error,
+      status: false,
+
+      comment: "server Error",
     });
   }
 }
