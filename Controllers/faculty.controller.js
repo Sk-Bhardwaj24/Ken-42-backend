@@ -20,7 +20,23 @@ async function login(req, res) {
   try {
     let facultyDetails = req.body;
     let searchobj = {};
-    searchobj["f_name"] = studenDetails.email;
+    searchobj["f_email"] = facultyDetails.f_email;
+    let response = await FacultyModel.find(searchobj);
+    if (response[0] == undefined) {
+      res.status(200).json({
+        status: "Please ask admin to register",
+        error: error,
+      });
+    } else if (response[0].password == facultyDetails.password) {
+      res.status(200).json({
+        status: "Sucessful",
+        faculty: response,
+      });
+    } else {
+      res.status(200).json({
+        status: "Password is wrong",
+      });
+    }
   } catch (error) {
     res.status(500).json({
       status: "Server Error",
@@ -30,4 +46,5 @@ async function login(req, res) {
 }
 module.exports = {
   createfaculty,
+  login,
 };
