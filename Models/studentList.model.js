@@ -14,7 +14,7 @@ const StudentSchema = Schema({
   term: { type: String, required: true },
   year: { type: String, required: true },
   number: { type: String, required: true },
-  // fees: [{ type: Object, required: true }],
+  fees: [{ type: Object, required: true }],
   password: { type: String, required: true },
 });
 
