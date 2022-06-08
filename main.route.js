@@ -1,0 +1,11 @@
+const express = require("express");
+const app = express();
+const adminRoute = require("./Routes/admin.route.js");
+const studentRoute = require("./Routes/student.route.js");
+// const blogRoute = require("./Routes/blog.route.js");
+const bodyParser = require("body-parser");
+app.use(bodyParser.json([]));
+app.use("/admin", adminRoute);
+app.use("/student", studentRoute);
+// app.use("/blog", blogRoute);
+module.exports = app;
