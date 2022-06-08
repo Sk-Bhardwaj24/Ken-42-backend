@@ -16,6 +16,19 @@ async function createEvents(req, res) {
     });
   }
 }
+async function getEvents(req, res) {
+  let response = await EventModel.find({});
+  let latestres = response.filter((each) => {
+    return (
+      each.start_date.getTime() > new Date().setMonth(new Date().getMonth() - 3)
+    );
+  });
+  res.status(200).json({
+    status: "Sucessful",
+    events: latestres,
+  });
+}
 module.exports = {
   createEvents,
+  getEvents,
 };
