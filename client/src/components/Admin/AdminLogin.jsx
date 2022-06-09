@@ -8,54 +8,56 @@ let Div = styled.div`
   text-align: center;
 `;
 
-const StudentLogin = () => {
+const AdminLogin = () => {
   const [formData, setFormData] = React.useState({
-    email: "",
-    password: "",
+    a_email: "",
+    a_password: "",
   });
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
-  const [studentData, setStudentsData] = React.useState([]);
+  const [adminData, setAdminData] = React.useState([]);
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
     setFormData((values) => ({ ...values, [name]: value }));
   };
   const handleSubmit = (e) => {
+    console.log(formData);
     e.preventDefault();
-    let stdetails = formData;
-    fetch(`https://kenassesment.herokuapp.com/student/login`, {
-      method: "POST",
-      body: JSON.stringify(stdetails),
+    let addetails = formData;
+    fetch(`https://kenassesment.herokuapp.com/admin/login`, {
+      method: "Post",
+      body: JSON.stringify(addetails),
       headers: {
         "content-type": "application/json",
       },
     })
       .then((res) => res.json())
       .then((res) => {
-        setStudentsData(res);
+        setAdminData(res);
+        console.log(res);
 
         if (res.status) {
           console.log(res);
-          dispatch(isAuthorized("student"));
-          navigate("/dashboard");
+          dispatch(isAuthorized("admin"));
+          navigate("/dashadmin");
         }
       });
 
     // console.log(formData);
   };
-  const { email, password } = formData;
+  const { a_email, a_password } = formData;
   return (
     <Div>
-      <h3>Student Dashboard</h3>
+      <h3>Admin Dashboard</h3>
       <form onSubmit={handleSubmit}>
         <label>
           Enter email:
           <input
             type="email"
-            name="email"
-            value={email}
+            name="a_email"
+            value={a_email}
             onChange={handleChange}
           />
         </label>
@@ -65,8 +67,8 @@ const StudentLogin = () => {
           Password:
           <input
             type="password"
-            name="password"
-            value={password}
+            name="a_password"
+            value={a_password}
             onChange={handleChange}
           />
         </label>
@@ -78,4 +80,4 @@ const StudentLogin = () => {
   );
 };
 
-export default StudentLogin;
+export default AdminLogin;

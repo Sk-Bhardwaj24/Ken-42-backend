@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Nav = styled.nav`
@@ -16,11 +17,16 @@ const Nav = styled.nav`
     /* font-size: 40px; */
   }
 `;
+const StLink = styled(Link)`
+  text-decoration: none;
+  color: white;
+`;
 const Navbar = () => {
   return (
     <Nav>
-      <li>Faculty</li>
-      <li>Admin</li>
+      <StLink to="/">Home</StLink>
+      <StLink to="/faculty">Faculty</StLink>
+      <StLink to="/admin">Admin</StLink>
     </Nav>
   );
 };
